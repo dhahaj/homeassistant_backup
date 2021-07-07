@@ -1,0 +1,195 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+http:
+#  ssl_certificate: /ssl/fullchain.pem
+#  ssl_key: /ssl/privkey.pem
+  
+homeassistant:
+#   external_url: http://dhahaj.com:8123
+
+spotify:
+  client_id: 3ed0b87f7dc940258ecf14fb6de04b51
+  client_secret: dfae4f0d2dce4a439848c5d753052978
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+frontend:
+  themes: !include_dir_merge_named themes
+  
+browser_mod:
+  prefix: "browser_"
+  devices:
+    7707b0be-70f44b27:
+      name: ENG-LAPTOP
+      camera: true
+    c6b1d109-06031812:
+      name: Surface
+      camera: true
+    33839409-053f06fb:
+      name: OnePlus7T
+      camera: true
+#   disable:
+#     - all
+
+
+octoprint:
+  host: 192.168.1.140
+  port: 5000
+  api_key: 'DD1D57C5FFDD4EC0801991D68A4D9327'
+  # host: 192.168.1.15
+  # api_key: !secret octo_api
+  bed: true
+  number_of_tools: 1
+  sensors:
+    monitored_conditions:
+      - 'Temperatures'
+      - 'Current State'
+      - 'Job Percentage'
+
+device_tracker:
+#  - platform: tplink_router
+#    host: 192.168.1.1
+#    username: danji31@outlook.com
+#    password: !secret tplink_router_password
+  - platform: google_maps
+    username: soupnazi02@gmail.com
+
+lyric:
+  client_id: !secret CLIENT_ID
+  client_secret: !secret CLIENT_SECRET
+     
+camera:
+  - platform: mjpeg
+    name: OctoPrint
+    mjpeg_url: http://192.168.1.140:8080/?action=stream
+    still_image_url: http://192.168.1.140:8080/?action=snapshot
+    # still_image_url: http://192.168.1.15/webcam/?action=snapshot
+    # mjpeg_url: http://192.168.1.15/webcam/?action=stream
+
+  - platform: generic
+    name: "WyzeCam"
+    still_image_url: http://192.168.1.140:8081/?action=snapshot
+    #mjpeg_url: rtsp://daniel:jnco5626@192.168.1.191/live
+    stream_source: "rtsp://daniel:jnco5626@192.168.1.191/live"
+    username: daniel
+    password: jnco5626
+    
+#   - platform: generic
+#     name: WyzeCam v1
+#     still_image_url: http://192.168.1.140:8081/?action=snapshot
+#     stream_source: "rtsp://192.168.1.156/live"
+#     username: daniel
+#     password: jnco5626
+
+  - platform: mjpeg
+    name: lenovo_cam
+    mjpeg_url: http://192.168.1.140:8081/?action=stream
+    still_image_url: http://192.168.1.140:8081/?action=snapshot
+    
+  - platform: mjpeg
+    name: minicam
+    mjpeg_url: http://192.168.1.179/video/livemb.asp
+    #username: admin
+
+  - platform: generic
+    name: Google Maps
+    still_image_url: https://maps.googleapis.com/maps/api/staticmap?center={{ state_attr('device_tracker.hd1905', 'latitude') }},{{ state_attr('device_tracker.hd1905', 'longitude') }}&zoom=13&size=500x500&maptype=roadmap&markers=color:blue%7Clabel:P%7C{{ state_attr('device_tracker.hd1905', 'latitude') }},{{ state_attr('device_tracker.hd1905', 'longitude') }}&key=AIzaSyB5HRDmoFUAjJRW8X1yMh4pAQOkE0RwNMQ
+    limit_refetch_to_url_change: true
+
+panel_iframe:
+  router:
+    title: "Router"
+    url: "http://192.168.1.1"
+  portainer:
+    title: "Portainer"
+    url: "http://192.168.1.140:9000"
+  esphome:
+    title: "ESP Home"
+    url: "http://192.168.1.140:6052"
+
+input_select:
+
+  themes:
+    name: 'Themes'
+    icon: mdi:format-paint
+    options:
+      - Caule Black Rose
+      - Caule Black Purple
+      - Caule Black Blue 
+      - Caule Black Aqua
+      - Caule Black Green
+      - Caule Black Yellow
+      - Caule Black Orange
+      - Caule Black Coral
+      - Caule Black Pink
+      - Caule Black Gray
+      - Caule Dark Rose
+      - Caule Dark Purple
+      - Caule Dark Blue 
+      - Caule Dark Aqua
+      - Caule Dark Green
+      - Caule Dark Yellow
+      - Caule Dark Orange
+      - Caule Dark Coral
+      - Caule Dark Pink
+      - Caule Dark Gray
+      - Caule Light Rose
+      - Caule Light Purple
+      - Caule Light Blue 
+      - Caule Light Aqua
+      - Caule Light Green
+      - Caule Light Yellow
+      - Caule Light Orange
+      - Caule Light Coral
+      - Caule Light Pink
+      - Caule Light Gray
+      - Caule Black Rose Glass
+      - Caule Black Purple Glass
+      - Caule Black Blue Glass 
+      - Caule Black Aqua Glass
+      - Caule Black Green Glass
+      - Caule Black Yellow Glass
+      - Caule Black Orange Glass
+      - Caule Black Coral Glass
+      - Caule Black Pink Glass
+      - Caule Black Gray Glass      
+      - default
+
+
+
+#home_alarm:
+  #module: home_alarm
+#  class: HomeAlarm
+ # sensors:
+  #  - binary_sensor.esp32cam_pir
+  #  - binary_sensor.entrance_door_contact
+   # - binary_sensor.entrance_motion_occupancy
+ # $safe_mode: input_boolean.safe_mode
+#  alerts:
+ #   - id: media_player
+# $     sound: amzn_sfx_scifi_alarm_04
+  #    loop_delay: 4
+  #    media_players:
+   #     - media_player.alexa
+ #       - media_player.alexa2
+ #   - id: notifier
+ #     notifiers:
+  #      - notify.mobile_app_iphone
+    #    - notify.notifier
+
+recorder:
+  db_url: mysql://daniel:jnco5626@core-mariadb/homeassistant?charset=utf8mb4
+
+logger:
+  default: warning
+  logs:
+    custom_components.webrtc: debug
+

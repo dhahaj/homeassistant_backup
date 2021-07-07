@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<aircast>
+<common>
+<enabled>1</enabled>
+<stop_receiver>0</stop_receiver>
+<media_volume>1.0000</media_volume>
+<latency></latency>
+<codec>flac</codec>
+<artwork></artwork>
+<drift>1</drift>
+<metadata>1</metadata>
+<flush>1</flush>
+</common>
+<main_log>info</main_log>
+<cast_log>info</cast_log>
+<util_log>warn</util_log>
+<log_limit>-1</log_limit>
+<max_players>32</max_players>
+<ports>0:0</ports>
+<binding>?</binding>
+<device>
+<udn>08ed09c7-d6e0-457d-8406-6968ef4cd8e9</udn>
+<name>Speaker group+</name>
+<mac>cc:cc:4b:45:2b:12</mac>
+<enabled>1</enabled>
+</device>
+<device>
+<udn>0c4c7aed2e09cba58e2302cf7a13dcad</udn>
+<name>Google Mini+</name>
+<mac>cc:cc:e0:59:90:a4</mac>
+<enabled>1</enabled>
+</device>
+</aircast>

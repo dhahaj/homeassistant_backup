@@ -1,0 +1,22 @@
+- id: '1625206631058'
+  name: New Scene
+  entities:
+    remote.broadlink_remote:
+      restored: true
+      supported_features: 3
+      friendly_name: broadlink Remote
+      state: unavailable
+    camera.ai_thinker_camera:
+      access_token: 7ef8547cda17012a0d2dac7f62eb4b31ea27a8c00506dadb506a8015d9baf5b1
+      friendly_name: AI Thinker Camera
+      entity_picture: /api/camera_proxy/camera.ai_thinker_camera?token=7ef8547cda17012a0d2dac7f62eb4b31ea27a8c00506dadb506a8015d9baf5b1
+      supported_features: 0
+      state: idle
+    switch.flash:
+      friendly_name: Flash
+      icon: ''
+      state: 'off'
+    switch.indicator:
+      friendly_name: Indicator
+      icon: ''
+      state: 'off'

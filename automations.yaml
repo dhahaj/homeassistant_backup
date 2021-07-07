@@ -1,0 +1,88 @@
+- id: '1623572384729'
+  alias: Zone Notification
+  description: ''
+  use_blueprint:
+    path: homeassistant/notify_leaving_zone.yaml
+    input:
+      person_entity: person.daniel
+      zone_entity: zone.home_3
+      notify_device: 7d3885038ee97967bb6a41aa81137770
+- id: '1623644866760'
+  alias: Send actionable notifications for Android
+  description: ''
+  use_blueprint:
+    path: vorion/actionable-notifications-for-android.yaml
+    input:
+      notify_device: 7d3885038ee97967bb6a41aa81137770
+      trigger_entity: input_boolean.actionable_boolean
+      notification_title: Title
+      notification_message: message
+      action_1_title: OK
+      first_action:
+      - type: toggle
+        device_id: 7799fdd545d4b74c777abb8828696ebe
+        entity_id: switch.shelly
+        domain: switch
+- id: '1623686162155'
+  alias: Zone Notification
+  description: ''
+  use_blueprint:
+    path: homeassistant/notify_leaving_zone.yaml
+    input:
+      person_entity: person.daniel
+      zone_entity: zone.home_3
+      notify_device: 7d3885038ee97967bb6a41aa81137770
+- id: '1623725912868'
+  alias: Automated Daily Snapshot
+  description: ''
+  use_blueprint:
+    path: vorion/create-automated-backups-every-day.yaml
+    input:
+      trigger_time: '22:00:00'
+      send_notification: true
+      notify_device: 7d3885038ee97967bb6a41aa81137770
+- id: '1623887328499'
+  alias: Tag keychain is scanned
+  description: ''
+  trigger:
+  - platform: tag
+    tag_id: 9158056b-70b8-4798-a794-c169ff88ee2e
+  condition: []
+  action:
+  - type: toggle
+    device_id: fa1bb348e4f4f9c620d4c672d4fcec3c
+    entity_id: switch.vent_switch
+    domain: switch
+  mode: single
+- id: '1625120306940'
+  alias: Set Themes
+  trigger:
+    platform: state
+    entity_id: input_select.themes
+  action:
+    service: frontend.set_theme
+    data_template:
+      name: '{{ trigger.to_state.state }}
+
+        '
+  initial_state: true
+- id: '1625418143769'
+  alias: Garage Door Notification
+  description: Send a notification to the mobile app when the garage door changes
+    states
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.door_reed_switch
+    from: 'off'
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.door_reed_switch
+    from: 'on '
+    to: 'off'
+  condition: []
+  action:
+  - service: notify.mobile_app_hd1905
+    data:
+      message: Garage Door State Changed
+      title: Garage Door Notification
+  mode: single

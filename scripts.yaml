@@ -1,0 +1,37 @@
+dash:
+  sequence:
+  - service: dash_cast.load_url
+    data:
+      entity_id: media_player.chromecast
+      url: http://192.168.1.140:8080/?action=stream
+      force: true
+  mode: single
+  alias: OctoPrint Cast
+'1625118241736':
+  sequence:
+  - service: dash_cast.load_url
+    data:
+      entity_id: media_player.chromecast
+      url: http://192.168.1.140:8081/?action=stream
+      force: true
+  mode: single
+  alias: Lenovo Cast
+'1625119207780':
+  sequence:
+  - service: dash_cast.load_url
+    data:
+      entity_id: media_player.chromecast
+      url: https://dakboard.com/app/screenPredefined?p=ebbf427eba2f9b9d9b4cf79622a0daa5
+      force: true
+  mode: single
+  alias: Dakboard Cast
+test_popup:
+  sequence:
+    - service: browser_mod.popup
+      data_template:
+        deviceID: "{{ deviceID }}"
+        title: Testing script
+        card:
+          type: entities
+          entities:
+            - light.bed_light
