@@ -10,8 +10,8 @@ homeassistant:
 #   external_url: http://dhahaj.com:8123
 
 spotify:
-  client_id: 3ed0b87f7dc940258ecf14fb6de04b51
-  client_secret: dfae4f0d2dce4a439848c5d753052978
+  client_id: !secret spotify_id
+  client_secret: !secret spotify_secret
 
 # Text to speech
 tts:
@@ -43,9 +43,7 @@ browser_mod:
 octoprint:
   host: 192.168.1.140
   port: 5000
-  api_key: 'DD1D57C5FFDD4EC0801991D68A4D9327'
-  # host: 192.168.1.15
-  # api_key: !secret octo_api
+  api_key: !secret octo_api
   bed: true
   number_of_tools: 1
   sensors:
